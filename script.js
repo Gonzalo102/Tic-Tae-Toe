@@ -54,12 +54,11 @@ const gameController = (() => {
 
     const playRound = (e, squareindex) => {
         console.log('board text for index ',squareindex, Gameboard.board[squareindex])
-        if (Gameboard.board[squareindex] !== '' || Gameboard.board[squareindex] == 'X' || Gameboard.board[squareindex] == 'O' || gameOver) return;
         Gameboard.setSign(squareindex, getCurrentPlayerSign());
-        console.log('round: ', round);
+        //console.log('round: ', round);
         checkWinner(squareindex);
-        console.log('checking winner: ', winner);
-        console.log('GameOver: ', gameOver);
+        //console.log('checking winner: ', winner);
+        //console.log('GameOver: ', gameOver);
         
     }
 
@@ -100,6 +99,10 @@ const gameController = (() => {
 
     }
 
+    const getRound = () => {
+        return round;
+    }
+
     const incrementRound = () => {
         round++;
     }
@@ -110,7 +113,7 @@ const gameController = (() => {
         round = 1;
     
     }
-    return {playRound, getCurrentPlayerSign, checkWinner, incrementRound, isGameOver, restartGame};
+    return {playRound, getCurrentPlayerSign, checkWinner, incrementRound, isGameOver, restartGame, getRound};
 
 })();
 
@@ -123,7 +126,7 @@ displayController = (() => {
         const squares = document.querySelectorAll('.square');
 
         container.addEventListener('click', (e) => {
-            if (gameController.isGameOver() == true) return;
+            if (Gameboard.board[parseInt(e.target.dataset.index)] !== '' || Gameboard.board[parseInt(e.target.dataset.index)] == 'X' || Gameboard.board[parseInt(e.target.dataset.index)] == 'O' || gameController.isGameOver() == true) return;
             gameController.playRound(e, parseInt(e.target.dataset.index));
             displayGameboard(e.target, parseInt(e.target.dataset.index));
             gameController.checkWinner(parseInt(e.target.dataset.index));
@@ -143,8 +146,12 @@ displayController = (() => {
         }
 
         const displayWinnerMessage = () => {
-            if(gameController.isGameOver() == false) return;
-            winnerDisplay.textContent = `The Winner is Player: ${gameController.getCurrentPlayerSign()}`;
+            if(gameController.isGameOver() == false && gameController.getRound() < 9) return;
+            if (gameController.isGameOver() == false && gameController.getRound() === 9) {
+                winnerDisplay.textContent = "Its a Draw";
+            } else {
+                winnerDisplay.textContent = `The Winner is Player: ${gameController.getCurrentPlayerSign()}`;
+            }
         }
         
         const resetGameboard = () => {
