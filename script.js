@@ -1,14 +1,19 @@
 
 //Factory Function
-const Player = (sign) => {
+const Player = (sign, name) => {
     
+    this.name = name;
     this.sign = sign;
   
     const getSign = () => {
       return sign;
     };
+
+    const getName = ()=> {
+        return name;
+    }
   
-    return { getSign };
+    return { getSign, getName };
   };
 
 
@@ -43,14 +48,32 @@ const Gameboard = (() => {
 
 //module
 const gameController = (() => {
-    const playerX = Player('X');
-    const playerO = Player('O');
-    
+
+
     let round = 1;
     let gameOver = false;
     let winner = false;
+    let playerXName = undefined;
+    let playerOName = undefined;
+
+    let playerX = Player('X', playerXName);
+    let playerO = Player('O', playerOName);
 
 //controls the flow of the game
+
+    const storageNames = () => {
+        console.log('funciona')
+
+        playerXName = document.getElementById('PlayerXname').value;
+        playerOName = document.getElementById('PlayerOname').value;
+
+        console.log(playerXName);
+        console.log(playerOName);
+
+        playerX = Player('X', playerXName);
+        playerO = Player('O', playerOName);
+
+    }
 
     const playRound = (e, squareindex) => {
         console.log('board text for index ',squareindex, Gameboard.board[squareindex])
@@ -65,6 +88,11 @@ const gameController = (() => {
     const getCurrentPlayerSign = () => {
         
         return round % 2 === 1 ? playerX.getSign() : playerO.getSign();
+    }
+
+    const getCurrentPlayerName = () => {
+        
+        return round % 2 === 1 ? playerX.getName() : playerO.getName();
     }
 
     const isGameOver = () => {
@@ -113,7 +141,7 @@ const gameController = (() => {
         round = 1;
     
     }
-    return {playRound, getCurrentPlayerSign, checkWinner, incrementRound, isGameOver, restartGame, getRound};
+    return {playRound, getCurrentPlayerSign, checkWinner, incrementRound, isGameOver, restartGame, getRound, getCurrentPlayerName, storageNames};
 
 })();
 
@@ -124,6 +152,9 @@ displayController = (() => {
         const winnerDisplay = document.querySelector('.winner-display');
         const restartButton = document.querySelector('.restart-button');
         const squares = document.querySelectorAll('.square');
+        const submitButton = document.querySelector('#submit');
+
+        submitButton.addEventListener('click', gameController.storageNames);
 
         container.addEventListener('click', (e) => {
             if (Gameboard.board[parseInt(e.target.dataset.index)] !== '' || Gameboard.board[parseInt(e.target.dataset.index)] == 'X' || Gameboard.board[parseInt(e.target.dataset.index)] == 'O' || gameController.isGameOver() == true) return;
@@ -150,7 +181,7 @@ displayController = (() => {
             if (gameController.isGameOver() == false && gameController.getRound() === 9) {
                 winnerDisplay.textContent = "Its a Draw";
             } else {
-                winnerDisplay.textContent = `The Winner is Player: ${gameController.getCurrentPlayerSign()}`;
+                winnerDisplay.textContent = `The Winner is Player: ${gameController.getCurrentPlayerName()}`;
             }
         }
         
