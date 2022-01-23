@@ -24,10 +24,7 @@ const Gameboard = (() => {
 
     //set sign
     const setSign = (index, sign) => {
-        
         board[index] = sign;
-        console.log(board);
-
     };
 
     //get field
@@ -49,7 +46,6 @@ const Gameboard = (() => {
 //module
 const gameController = (() => {
 
-
     let round = 1;
     let gameOver = false;
     let winner = false;
@@ -62,36 +58,22 @@ const gameController = (() => {
 //controls the flow of the game
 
     const storageNames = () => {
-        console.log('funciona')
-
         playerXName = document.getElementById('PlayerXname').value;
         playerOName = document.getElementById('PlayerOname').value;
-
-        console.log(playerXName);
-        console.log(playerOName);
-
         playerX = Player('X', playerXName);
         playerO = Player('O', playerOName);
-
     }
 
     const playRound = (e, squareindex) => {
-        console.log('board text for index ',squareindex, Gameboard.board[squareindex])
         Gameboard.setSign(squareindex, getCurrentPlayerSign());
-        //console.log('round: ', round);
         checkWinner(squareindex);
-        //console.log('checking winner: ', winner);
-        //console.log('GameOver: ', gameOver);
-        
     }
 
     const getCurrentPlayerSign = () => {
-        
         return round % 2 === 1 ? playerX.getSign() : playerO.getSign();
     }
 
     const getCurrentPlayerName = () => {
-        
         return round % 2 === 1 ? playerX.getName() : playerO.getName();
     }
 
@@ -190,4 +172,4 @@ displayController = (() => {
             winnerDisplay.textContent = '';
         }
         
-    })();
+})();
