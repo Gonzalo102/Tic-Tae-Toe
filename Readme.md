@@ -1,6 +1,6 @@
 Tic-Tac-Toe game created with HTML, CSS and JS.
 
-Live Demo point_left
+Live Demo :point_left:
 
 Learned Concepts: 
 * Factory Functions 
