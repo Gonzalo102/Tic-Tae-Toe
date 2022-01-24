@@ -1,3 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+
+header {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 50px;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 30px;
+}
 
 .container {
   display: grid;
@@ -6,6 +23,7 @@
   width: 450px;
   height: 450px;
   overflow:hidden;
+  margin-top: 5rem;
 }
 
 .square {
@@ -31,7 +49,55 @@ li + li {
   margin: 10px 0 50px;
 }
 
-.restart-button {
-  margin-top: 2em;
+.restart-button, .names-button {
   padding: 10px;
+}
+
+.footer {
+  margin-top: 3rem;
+}
+
+#form-players-name ul{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid black;
+  width: 500px;
+  min-height: 400px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  z-index: 10;
+  background-color: white;
+}
+
+#form-players-name ul.active {
+  transform: translate(-50%, -50%) scale(1);
+
+}
+
+#form-players-name ul h2 {
+  font-size: 40px;
+  color: #333;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+#overlay.active {
+  pointer-events: all;
+  opacity: 1;
 }

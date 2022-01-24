@@ -6,7 +6,7 @@ const Player = (sign, name) => {
     this.sign = sign;
   
     const getSign = () => {
-      return sign;
+        return sign;
     };
 
     const getName = ()=> {
@@ -57,7 +57,9 @@ const gameController = (() => {
 
 //controls the flow of the game
 
-    const storageNames = () => {
+    const storageNames = (e) => {
+        e.preventDefault()
+       
         playerXName = document.getElementById('PlayerXname').value;
         playerOName = document.getElementById('PlayerOname').value;
         playerX = Player('X', playerXName);
@@ -133,10 +135,27 @@ displayController = (() => {
         const container = document.querySelector('.container');
         const winnerDisplay = document.querySelector('.winner-display');
         const restartButton = document.querySelector('.restart-button');
+        const namesButton = document.querySelector('.names-button');
         const squares = document.querySelectorAll('.square');
-        const submitButton = document.querySelector('#submit');
+        const namesForm = document.querySelector('#form-players-name');
+        const overlay = document.getElementById('overlay')
 
-        submitButton.addEventListener('click', gameController.storageNames);
+        namesForm.addEventListener('submit', (e) => gameController.storageNames(e));
+        namesForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const modal = e.target.firstChild.nextSibling
+            modal.classList.remove('active')
+            overlay.classList.remove('active')
+            gameController.restartGame();
+            Gameboard.reset();
+            resetGameboard();
+        })
+
+        namesButton.addEventListener('click', () => {
+            const modal = namesForm.firstChild.nextSibling
+            modal.classList.add('active')
+            overlay.classList.add('active')
+        })
 
         container.addEventListener('click', (e) => {
             if (Gameboard.board[parseInt(e.target.dataset.index)] !== '' || Gameboard.board[parseInt(e.target.dataset.index)] == 'X' || Gameboard.board[parseInt(e.target.dataset.index)] == 'O' || gameController.isGameOver() == true) return;
@@ -163,7 +182,7 @@ displayController = (() => {
             if (gameController.isGameOver() == false && gameController.getRound() === 9) {
                 winnerDisplay.textContent = "Its a Draw";
             } else {
-                winnerDisplay.textContent = `The Winner is Player: ${gameController.getCurrentPlayerName()}`;
+                winnerDisplay.textContent = `The Winner is ${gameController.getCurrentPlayerName()}`;
             }
         }
         

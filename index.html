@@ -9,37 +9,42 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <center>
-        <div class="names">
-            <ul>
-                <li>
-                  <label class="label" for="name">Player X Name:</label>
-                  <input class="input" type="text" id="PlayerXname" name="Player_X_name">
-                </li>
-                <li>
-                    <label class="label" for="name">Player O Name:</label>
-                    <input class="input" type="text" id="PlayerOname" name="Player_O_name">
-                  </li>
-                <li class="button">
-                    <button type="button" id="submit">Submit</button>
-                </li>
-            </ul>
-        </div>
-        <div class="container">
-            <div data-index="0" class="square"></div>
-            <div data-index="1" class="square"></div>
-            <div data-index="2" class="square"></div>
-            <div data-index="3" class="square"></div>
-            <div data-index="4" class="square"></div>
-            <div data-index="5" class="square"></div>
-            <div data-index="6" class="square"></div>
-            <div data-index="7" class="square"></div>
-            <div data-index="8" class="square"></div>
-        </div>
-        <div class="footer">
-            <h1 class="winner-display"> </h1>
-            <button class="restart-button"> Restart Game </button>
-        </div>
-    </center>
+    <header>TIC TAE TOE</header>
+            <form action="" id="form-players-name">
+                <ul class="active">
+                    <h2>Tic Tae Toe</h2>
+                    <h3>Fill the Players Names to start the Game</h3>
+                    <li>
+                    <label class="label" for="name">Player One:</label>
+                    <input class="input" placeholder="John" type="text" id="PlayerXname" name="Player_X_name" required>
+                    </li>
+                    <li>
+                        <label class="label" for="name">Player Two:</label>
+                        <input class="input" placeholder="David" type="text" id="PlayerOname" name="Player_O_name" required>
+                    </li>
+                    <li class="button">
+                        <button type="submit" id="submit">Start Game</button>
+                    </li>
+                </ul>
+            </form>
+        <center>
+            <div class="container">
+                <div data-index="0" class="square"></div>
+                <div data-index="1" class="square"></div>
+                <div data-index="2" class="square"></div>
+                <div data-index="3" class="square"></div>
+                <div data-index="4" class="square"></div>
+                <div data-index="5" class="square"></div>
+                <div data-index="6" class="square"></div>
+                <div data-index="7" class="square"></div>
+                <div data-index="8" class="square"></div>
+            </div>
+            <div class="footer">
+                <h1 class="winner-display"> </h1>
+                <button class="restart-button"> Restart Game </button>
+                <button class="names-button"> Change Names</button>
+            </div>
+        </center>
+    <div id="overlay" class="active"></div>
 </body>
 </html>
